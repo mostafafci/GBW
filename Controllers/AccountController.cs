@@ -91,6 +91,10 @@ namespace GBW.Controllers
             {
                 return NotFound();
             }
+            if (user.IsActive==false)
+            {
+                return NotFound();
+            }
             string Token = GetToken(userModel.UserName, userModel.Password);
             var obj = JsonConvert.DeserializeObject<TokenData>(Token);
             LoginData loginData = new LoginData();

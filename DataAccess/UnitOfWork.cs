@@ -46,5 +46,8 @@ namespace GBW.DataAccess
 
         PartenersService partenersService;
         public PartenersService PartenersService => partenersService ?? (partenersService = new PartenersService(Context));
+
+        EventsService eventsService;
+        public EventsService EventsService => eventsService ?? (eventsService = new EventsService(Context));
     }
 }

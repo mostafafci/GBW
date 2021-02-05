@@ -36,5 +36,6 @@ namespace GBW.Models
         }
 
         public DbSet<Parteners> Parteners { get; set; }
+        public DbSet<Events> Events { get; set; }
     }
 }
