@@ -31,6 +31,7 @@ namespace GBW.DataAccess
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
             string ReferralLink = CreateReferralLink(userModel.Email);
+            string InvitedUserId = GetUserIdFromReferralLink(userModel.InvitedReferralLink);
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.Email,
@@ -39,6 +40,7 @@ namespace GBW.DataAccess
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 ReferralLink = ReferralLink,
+                InvitedUserId= InvitedUserId,
                 IsActive = true
             };
 
@@ -149,10 +151,20 @@ namespace GBW.DataAccess
             List<string> Lst = Email.Split('@').ToList();
             if (Lst.Count>0)
             {
-                string Domain = WebConfigurationManager.AppSettings["ApplicationFrontDomain"];
-                return Domain+Lst.FirstOrDefault();
+                //string Domain = WebConfigurationManager.AppSettings["ApplicationFrontDomain"];
+                return Lst.FirstOrDefault();
             }
             return null;
+        }
+
+        private string GetUserIdFromReferralLink(string ReferralLink)
+        {
+            var user = _ctx.Users.Where(x => x.ReferralLink == ReferralLink && x.IsActive == true).FirstOrDefault();
+            if (user == null)
+            {
+                return null;
+            }
+            return user.Id;
         }
     }
     public class ChangePasswordBindingModell

@@ -73,6 +73,7 @@ namespace GBW.Controllers
             loginData.TokenData = obj;
             loginData.UserID = user.Id;
             loginData.UserName = user.UserName;
+            loginData.ReferralLink = UnitOfWork.UsersService.ReturnFullReferralLink(user.ReferralLink);
             //return Ok(Token);
             return Request.CreateResponse<LoginData>(HttpStatusCode.OK, loginData);
         }
@@ -338,6 +339,7 @@ namespace GBW.Controllers
         public TokenData TokenData { get; set; }
         public string UserID { get; set; }
         public string UserName { get; set; }
+        public string ReferralLink { get; set; }
         public string UserImage { get; set; }
     }
     public class TokenData

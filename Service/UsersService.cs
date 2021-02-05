@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 
 namespace GBW.Service
 {
@@ -70,7 +71,6 @@ namespace GBW.Service
                 Email=l.Email,
                 Phone=l.PhoneNumber,
                 Image=l.Image,
-                ReferralLink =l.ReferralLink,
                 Statues=l.IsActive
             }).ToList();
 
@@ -79,7 +79,7 @@ namespace GBW.Service
 
         public UsersDataViewModel GetUserDataDetails(string UserId)
         {
-            return dbSet.Where(x =>x.Id==UserId && x.IsActive==true).ToList().Select(l => new UsersDataViewModel()
+            var user= dbSet.Where(x =>x.Id==UserId && x.IsActive==true).ToList().Select(l => new UsersDataViewModel()
             {
                 Id = l.Id,
                 Email = l.Email,
@@ -88,9 +88,20 @@ namespace GBW.Service
                 ReferralLink = l.ReferralLink,
                 Statues = l.IsActive
             }).FirstOrDefault();
-
+            user.ReferralLink = ReturnFullReferralLink(user.Email);
+            return user;
         }
 
+        public string ReturnFullReferralLink(string Email)
+        {
+            List<string> Lst = Email.Split('@').ToList();
+            if (Lst.Count > 0)
+            {
+                string Domain = WebConfigurationManager.AppSettings["ApplicationFrontDomain"];
+                return Domain + Lst.FirstOrDefault();
+            }
+            return null;
+        }
 
     }
 

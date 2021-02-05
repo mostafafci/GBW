@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -20,6 +21,10 @@ namespace GBW.Models
 
         public string Image { get; set; }
         public string ReferralLink { get; set; }
+        public string InvitedUserId { get; set; }
+        [ForeignKey("InvitedUserId")]
+        public ApplicationUser User { get; set; }
+
         public bool IsActive { get; set; }
     }
 

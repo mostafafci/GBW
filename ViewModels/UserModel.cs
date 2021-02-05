@@ -9,11 +9,6 @@ namespace GBW.ViewModels
     public class UserModel
     {
         [Required]
-        [Display(Name = "User name")]
-        [DataType(DataType.EmailAddress)]
-        public string UserName { get; set; }
-
-        [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -34,5 +29,9 @@ namespace GBW.ViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+
+        [Display(Name = "InvitedReferralLink")]
+        public string InvitedReferralLink { get; set; }
     }
 }
