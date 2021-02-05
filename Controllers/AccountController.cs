@@ -26,6 +26,8 @@ using GBW.Service;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Configuration;
 
 namespace GBW.Controllers
 {
@@ -95,6 +97,8 @@ namespace GBW.Controllers
             loginData.TokenData = obj;
             loginData.UserID = user.Id;
             loginData.UserName = user.UserName;
+            string Domain = WebConfigurationManager.AppSettings["ApplicationAPIDomain"];
+            loginData.UserImage = Domain + user.Image;
             return Ok(loginData);
         }
 
@@ -224,7 +228,10 @@ namespace GBW.Controllers
             if (ModelState.IsValid)
             {
                 string UserId = GetAuthUserID();
-                var resualt = UnitOfWork.UsersService.UpdateUserImage(UserId, model.ImageBase64);
+                SaveImageViewModel Newmodel = new SaveImageViewModel();
+                Newmodel.UserId = UserId;
+                Newmodel.Image = model.ImageBase64;
+                var resualt = UnitOfWork.UsersService.UpdateUserImage(Newmodel);
                 if (resualt != null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.OK, "Image Updated");
@@ -322,6 +329,7 @@ namespace GBW.Controllers
 
     public class ImageViewModel
     {
+        [Required]
         public string ImageBase64 { get; set; }
     }
 
