@@ -209,6 +209,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\PartenersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\AuthRepository.cs" />
@@ -233,15 +234,23 @@
     <Compile Include="Migrations\202102051413568_test4.Designer.cs">
       <DependentUpon>202102051413568_test4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102051648479_test5.cs" />
+    <Compile Include="Migrations\202102051648479_test5.Designer.cs">
+      <DependentUpon>202102051648479_test5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Parteners.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Service\PartenersService.cs" />
     <Compile Include="Service\UsersService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PartenersAddViewModel.cs" />
+    <Compile Include="ViewModels\PartenersViewModel.cs" />
     <Compile Include="ViewModels\UserLoginViewModel.cs" />
     <Compile Include="ViewModels\UserModel.cs" />
     <Compile Include="ViewModels\UsersDataViewModel.cs" />
@@ -309,8 +318,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Admin\" />
     <Folder Include="Controllers\User\" />
+    <Folder Include="Views\Parteners\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -353,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102051413568_test4.resx">
       <DependentUpon>202102051413568_test4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051648479_test5.resx">
+      <DependentUpon>202102051648479_test5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
