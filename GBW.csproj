@@ -221,6 +221,18 @@
     <Compile Include="Migrations\202102021355316_Migration1.Designer.cs">
       <DependentUpon>202102021355316_Migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102051149006_test2.cs" />
+    <Compile Include="Migrations\202102051149006_test2.Designer.cs">
+      <DependentUpon>202102051149006_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051305436_test3.cs" />
+    <Compile Include="Migrations\202102051305436_test3.Designer.cs">
+      <DependentUpon>202102051305436_test3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051413568_test4.cs" />
+    <Compile Include="Migrations\202102051413568_test4.Designer.cs">
+      <DependentUpon>202102051413568_test4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -232,6 +244,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\UserLoginViewModel.cs" />
     <Compile Include="ViewModels\UserModel.cs" />
+    <Compile Include="ViewModels\UsersDataViewModel.cs" />
+    <Compile Include="ViewModels\UsersListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -295,6 +309,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Admin\" />
+    <Folder Include="Controllers\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -328,6 +344,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102021355316_Migration1.resx">
       <DependentUpon>202102021355316_Migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051149006_test2.resx">
+      <DependentUpon>202102051149006_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051305436_test3.resx">
+      <DependentUpon>202102051305436_test3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051413568_test4.resx">
+      <DependentUpon>202102051413568_test4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

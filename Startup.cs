@@ -60,6 +60,7 @@ namespace GBW
                 UserName = "mostafaharoon1993@gmail.com",
                 Email = "mostafaharoon1993@gmail.com",
                 PhoneNumber = "01009433965",
+                IsActive=true
 
             };
             ApplicationDbContext dbContext = new ApplicationDbContext();

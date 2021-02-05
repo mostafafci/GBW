@@ -30,6 +30,7 @@ namespace GBW.DataAccess
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
+            string ReferralLink = CreateReferralLink(userModel.Email);
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.Email,
@@ -37,6 +38,8 @@ namespace GBW.DataAccess
                 PhoneNumber = userModel.Phone,
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
+                ReferralLink = ReferralLink,
+                IsActive = true
             };
 
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -58,7 +61,6 @@ namespace GBW.DataAccess
             }
             return user;
         }
-
         public async Task<IdentityResult> ChangePassword(ChangePasswordBindingModell model)
         {
 
@@ -140,6 +142,18 @@ namespace GBW.DataAccess
 
             return result;
         }
+
+
+        private string CreateReferralLink(string Email)
+        {
+            List<string> Lst = Email.Split('@').ToList();
+            if (Lst.Count>0)
+            {
+                string Domain = WebConfigurationManager.AppSettings["ApplicationDomain"];
+                return Domain+Lst.FirstOrDefault();
+            }
+            return null;
+        }
     }
     public class ChangePasswordBindingModell
     {
@@ -190,4 +204,5 @@ namespace GBW.DataAccess
 
         }
     }
+
 }

@@ -16,6 +16,10 @@ namespace GBW.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Image { get; set; }
+        public string ReferralLink { get; set; }
+        public bool IsActive { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -22,6 +22,10 @@ using GBW.ViewModels;
 using System.Net;
 using System.Linq;
 using Newtonsoft.Json;
+using GBW.Service;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace GBW.Controllers
 {
@@ -141,6 +145,108 @@ namespace GBW.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
+        [ResponseType(typeof(List<UsersListViewModel>))]
+        public List<UsersListViewModel> GetUsersList()
+        {
+            return UnitOfWork.UsersService.GetUsersList();
+        }
+
+        [HttpGet]
+        [Authorize]
+        [ResponseType(typeof(UsersDataViewModel))]
+        public UsersDataViewModel GetUserDetails()
+        {
+            string UserId = GetAuthUserID();
+            return UnitOfWork.UsersService.GetUserDataDetails(UserId);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage ActiveUser(string UserId)
+        {
+            if (ModelState.IsValid)
+            {
+                var resualt =UnitOfWork.UsersService.GetUserById(UserId);
+                if (resualt !=null)
+                {
+                    resualt.IsActive = true;
+                    UnitOfWork.Commit();
+                    return Request.CreateErrorResponse(HttpStatusCode.OK, "User Activated");
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User Not Found");
+                }
+            }
+            else
+            {
+                var message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage DisActiveUser(string UserId)
+        {
+            if (ModelState.IsValid)
+            {
+                var resualt = UnitOfWork.UsersService.GetUserById(UserId);
+                if (resualt != null)
+                {
+                    resualt.IsActive = false;
+                    UnitOfWork.Commit();
+                    return Request.CreateErrorResponse(HttpStatusCode.OK, "User DisActivated");
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User Not Found");
+                }
+            }
+            else
+            {
+                var message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage UpdateUserImage(ImageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string UserId = GetAuthUserID();
+                var resualt = UnitOfWork.UsersService.GetUserById(UserId);
+                if (resualt != null)
+                {
+                    resualt.Image = model.ImageBase64;
+                    UnitOfWork.Commit();
+                    return Request.CreateErrorResponse(HttpStatusCode.OK, "Image Updated");
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User Not Found");
+                }
+            }
+            else
+            {
+                var message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -205,16 +311,22 @@ namespace GBW.Controllers
             {
                 var userWithClaims = (ClaimsPrincipal)User;
                 //var email = userWithClaims.FindFirst(ClaimTypes.Email).Value;
-                string UserEmail = userWithClaims.Claims.FirstOrDefault().Value;
-                var user = _repo.FindByEmail(UserEmail);
-                if (user != null)
+                string UserId = userWithClaims.Claims.FirstOrDefault().Value;
+                //var user = _repo.FindByEmail(UserEmail);
+                if (UserId != null)
                 {
-                    return user.Id;
+                    return UserId;
                 }
                 return null;
             }
             return null;
         }
+
+    }
+
+    public class ImageViewModel
+    {
+        public string ImageBase64 { get; set; }
     }
 
     internal class LoginData
