@@ -37,6 +37,30 @@ namespace GBW.Service
             return dbSet.FirstOrDefault(s => s.Id == UserId);
         }
 
+        public ApplicationUser ActiveUser(string UserId)
+        {
+            var user= dbSet.FirstOrDefault(s => s.Id == UserId);
+            user.IsActive = true;
+            _context.SaveChanges();
+            return user;
+        }
+
+        public ApplicationUser DisActiveUser(string UserId)
+        {
+            var user = dbSet.FirstOrDefault(s => s.Id == UserId);
+            user.IsActive = false;
+            _context.SaveChanges();
+            return user;
+        }
+
+        public ApplicationUser UpdateUserImage(string UserId,string Image)
+        {
+            var user = dbSet.FirstOrDefault(s => s.Id == UserId);
+            user.Image = Image;
+            _context.SaveChanges();
+            return user;
+        }
+
         public List<UsersListViewModel> GetUsersList()
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_context));

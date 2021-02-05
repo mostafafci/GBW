@@ -170,11 +170,9 @@ namespace GBW.Controllers
         {
             if (ModelState.IsValid)
             {
-                var resualt =UnitOfWork.UsersService.GetUserById(UserId);
+                var resualt =UnitOfWork.UsersService.ActiveUser(UserId);
                 if (resualt !=null)
                 {
-                    resualt.IsActive = true;
-                    UnitOfWork.Commit();
                     return Request.CreateErrorResponse(HttpStatusCode.OK, "User Activated");
                 }
                 else
@@ -197,7 +195,7 @@ namespace GBW.Controllers
         {
             if (ModelState.IsValid)
             {
-                var resualt = UnitOfWork.UsersService.GetUserById(UserId);
+                var resualt = UnitOfWork.UsersService.DisActiveUser(UserId);
                 if (resualt != null)
                 {
                     resualt.IsActive = false;
@@ -226,11 +224,9 @@ namespace GBW.Controllers
             if (ModelState.IsValid)
             {
                 string UserId = GetAuthUserID();
-                var resualt = UnitOfWork.UsersService.GetUserById(UserId);
+                var resualt = UnitOfWork.UsersService.UpdateUserImage(UserId, model.ImageBase64);
                 if (resualt != null)
                 {
-                    resualt.Image = model.ImageBase64;
-                    UnitOfWork.Commit();
                     return Request.CreateErrorResponse(HttpStatusCode.OK, "Image Updated");
                 }
                 else
