@@ -211,7 +211,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\PartenersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\AuthRepository.cs" />
     <Compile Include="DataAccess\Repository.cs" />
@@ -320,7 +319,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\User\" />
-    <Folder Include="UploadedImages\UsersImages\" />
     <Folder Include="Views\Helper\" />
     <Folder Include="Views\Parteners\" />
   </ItemGroup>

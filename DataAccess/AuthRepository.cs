@@ -149,7 +149,7 @@ namespace GBW.DataAccess
             List<string> Lst = Email.Split('@').ToList();
             if (Lst.Count>0)
             {
-                string Domain = WebConfigurationManager.AppSettings["ApplicationDomain"];
+                string Domain = WebConfigurationManager.AppSettings["ApplicationFrontDomain"];
                 return Domain+Lst.FirstOrDefault();
             }
             return null;

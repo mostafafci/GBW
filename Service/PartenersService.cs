@@ -24,7 +24,7 @@ namespace GBW.Service
                 Name=s.Name,
                 Description=s.Description,
                 WebsiteURL=s.WebsiteURL,
-                Image=s.Image
+                ImageBase64=s.Image
             }).ToList();
         }
 
@@ -37,7 +37,7 @@ namespace GBW.Service
                 Name = s.Name,
                 Description = s.Description,
                 WebsiteURL = s.WebsiteURL,
-                Image = s.Image
+                ImageBase64 = s.Image
             }).FirstOrDefault();
 
         }
@@ -50,7 +50,7 @@ namespace GBW.Service
                 parteners.Name = model.Name;
                 parteners.Description = model.Description;
                 parteners.WebsiteURL = model.WebsiteURL;
-                parteners.Image = model.Image;
+                parteners.Image = model.ImageBase64;
                 parteners.AddedBy = UserId;
                 parteners.AddedDate = DateTime.Now;
                 parteners.IsDeleted = false;
@@ -74,7 +74,7 @@ namespace GBW.Service
             item.Name = model.Name;
             item.Description = model.Description;
             item.WebsiteURL = model.WebsiteURL;
-            item.Image = model.Image;
+            item.Image = model.ImageBase64;
             _context.SaveChanges();
             return true;
         }

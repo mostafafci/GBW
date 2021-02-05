@@ -97,8 +97,7 @@ namespace GBW.Controllers
             loginData.TokenData = obj;
             loginData.UserID = user.Id;
             loginData.UserName = user.UserName;
-            string Domain = WebConfigurationManager.AppSettings["ApplicationAPIDomain"];
-            loginData.UserImage = Domain + user.Image;
+            loginData.UserImage =user.Image;
             return Ok(loginData);
         }
 
@@ -228,10 +227,7 @@ namespace GBW.Controllers
             if (ModelState.IsValid)
             {
                 string UserId = GetAuthUserID();
-                SaveImageViewModel Newmodel = new SaveImageViewModel();
-                Newmodel.UserId = UserId;
-                Newmodel.Image = model.ImageBase64;
-                var resualt = UnitOfWork.UsersService.UpdateUserImage(Newmodel);
+                var resualt = UnitOfWork.UsersService.UpdateUserImage(UserId, model.ImageBase64);
                 if (resualt != null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.OK, "Image Updated");

@@ -11,7 +11,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 
 namespace GBW.Service
 {
@@ -54,25 +53,12 @@ namespace GBW.Service
             return user;
         }
 
-        public ApplicationUser UpdateUserImage(SaveImageViewModel model)
+        public ApplicationUser UpdateUserImage(string UserId,string Image)
         {
-            var user = dbSet.FirstOrDefault(s => s.Id == model.UserId);
-            if (user==null)
-            {
-                return null;
-            }
-            try
-            {
-                HelperController helper = new HelperController();
-                user.Image = helper.SaveImageFromApi(model);
-                _context.SaveChanges();
-                return user;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            var user = dbSet.FirstOrDefault(s => s.Id == UserId);
+            user.Image = Image;
+            _context.SaveChanges();
+            return user;
         }
 
         public List<UsersListViewModel> GetUsersList()
@@ -93,18 +79,15 @@ namespace GBW.Service
 
         public UsersDataViewModel GetUserDataDetails(string UserId)
         {
-            var user= dbSet.Where(x =>x.Id==UserId && x.IsActive==true).ToList().Select(l => new UsersDataViewModel()
+            return dbSet.Where(x =>x.Id==UserId && x.IsActive==true).ToList().Select(l => new UsersDataViewModel()
             {
                 Id = l.Id,
                 Email = l.Email,
                 Phone = l.PhoneNumber,
-                Image = l.Image,
+                ImageBase64 = l.Image,
                 ReferralLink = l.ReferralLink,
                 Statues = l.IsActive
             }).FirstOrDefault();
-            string Domain = WebConfigurationManager.AppSettings["ApplicationAPIDomain"];
-            user.Image = Domain + user.Image;
-            return user;
 
         }
 
