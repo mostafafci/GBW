@@ -253,9 +253,17 @@ namespace GBW.Controllers
         [HttpGet]
         [Authorize(Roles = "SuperAdmin")]
         [ResponseType(typeof(List<UserInvitedTree>))]
-        public List<UserInvitedTree> GetUserReferralTree(string Id)
+        public List<UserInvitedTree> GetUserReferralTreeForSuperAdmin(string Id)
         {
             return UnitOfWork.UsersService.GetUserReferralByUserId(Id);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(List<UserInvitedTree>))]
+        public List<UserInvitedTree> GetUserReferralTreeForUser()
+        {
+            string UserId = GetAuthUserID();
+            return UnitOfWork.UsersService.GetUserReferralByUserId(UserId);
         }
 
 
