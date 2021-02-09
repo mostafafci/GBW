@@ -49,5 +49,11 @@ namespace GBW.DataAccess
 
         EventsService eventsService;
         public EventsService EventsService => eventsService ?? (eventsService = new EventsService(Context));
+
+        GoldPackageService goldPackageService;
+        public GoldPackageService GoldPackageService => goldPackageService ?? (goldPackageService = new GoldPackageService(Context));
+
+        GoldPackageEducationLinksService goldPackageEducationLinksService;
+        public GoldPackageEducationLinksService GoldPackageEducationLinksService => goldPackageEducationLinksService ?? (goldPackageEducationLinksService = new GoldPackageEducationLinksService(Context));
     }
 }

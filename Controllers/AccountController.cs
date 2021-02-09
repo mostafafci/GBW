@@ -250,6 +250,14 @@ namespace GBW.Controllers
 
         }
 
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
+        [ResponseType(typeof(List<UserInvitedTree>))]
+        public List<UserInvitedTree> GetUserReferralTree(string Id)
+        {
+            return UnitOfWork.UsersService.GetUserReferralByUserId(Id);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

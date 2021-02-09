@@ -103,6 +103,51 @@ namespace GBW.Service
             return null;
         }
 
+        public List<UserInvitedTree> GetUserReferralByUserId(string UserId)
+        {
+            var user = dbSet.FirstOrDefault(s => s.Id == UserId && s.IsActive==true);
+            if (user == null)
+            {
+                return null;
+            }
+            UserInvitedTree ParentItem = new UserInvitedTree();
+            ParentItem.ChildUserId = user.Id;
+            ParentItem.ChildUserEmail = user.Email;
+            ParentItem.ParnetUserId = user.InvitedUserId;
+
+            List<UserInvitedTree> parents = new List<UserInvitedTree>();
+            List<UserInvitedTree> Users = new List<UserInvitedTree>();
+            parents.Add(ParentItem);
+            Users.Add(ParentItem);
+            return getUserRefferralChilds(parents,ref Users);
+        }
+
+        private List<UserInvitedTree> getUserRefferralChilds(List<UserInvitedTree> parents, ref List<UserInvitedTree> Users)
+        {
+            if (parents.Count > 0)
+            {
+                List<UserInvitedTree> paLst = new List<UserInvitedTree>();
+                foreach (var par in parents)
+                {
+                    var parent = dbSet.Where(s => s.InvitedUserId == par.ChildUserId && s.IsActive == true).ToList();
+                    if (parent.Count > 0)
+                    {
+                        paLst.AddRange(parent.Select(x=>new UserInvitedTree() { ChildUserId=x.Id,ChildUserEmail=x.Email,ParnetUserId=x.InvitedUserId}).ToList());
+                        Users.AddRange(parent.Select(x => new UserInvitedTree() { ChildUserId = x.Id, ChildUserEmail = x.Email, ParnetUserId = x.InvitedUserId }).ToList());
+                    }
+                }
+                getUserRefferralChilds(paLst, ref Users);
+            }
+            return Users;
+        }
+
+    }
+
+    public class UserInvitedTree
+    {
+        public string ChildUserId { get; set; }
+        public string ChildUserEmail { get; set; }
+        public string ParnetUserId { get; set; }
     }
 
 }

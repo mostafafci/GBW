@@ -159,6 +159,11 @@ namespace GBW.DataAccess
 
         private string GetUserIdFromReferralLink(string ReferralLink)
         {
+            string Domain = WebConfigurationManager.AppSettings["ApplicationFrontDomain"];
+            if (ReferralLink.Contains(Domain))
+            {
+                ReferralLink = ReferralLink.Replace(Domain, "");
+            }
             var user = _ctx.Users.Where(x => x.ReferralLink == ReferralLink && x.IsActive == true).FirstOrDefault();
             if (user == null)
             {

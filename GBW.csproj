@@ -209,6 +209,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\GoldPackgesController.cs" />
     <Compile Include="Controllers\Admin\EventsController.cs" />
     <Compile Include="Controllers\Admin\PartenersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -247,21 +248,38 @@
     <Compile Include="Migrations\202102052239136_test7.Designer.cs">
       <DependentUpon>202102052239136_test7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102090442102_test8.cs" />
+    <Compile Include="Migrations\202102090442102_test8.Designer.cs">
+      <DependentUpon>202102090442102_test8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102090513309_test9.cs" />
+    <Compile Include="Migrations\202102090513309_test9.Designer.cs">
+      <DependentUpon>202102090513309_test9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102090514575_test91.cs" />
+    <Compile Include="Migrations\202102090514575_test91.Designer.cs">
+      <DependentUpon>202102090514575_test91.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Events.cs" />
+    <Compile Include="Models\GoldPackage.cs" />
+    <Compile Include="Models\GoldPackageEducationLinks.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Parteners.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Service\EventsService.cs" />
+    <Compile Include="Service\GoldPackageEducationLinksService.cs" />
+    <Compile Include="Service\GoldPackageService.cs" />
     <Compile Include="Service\PartenersService.cs" />
     <Compile Include="Service\UsersService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EventsAddViewModel.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
+    <Compile Include="ViewModels\GoldPackageViewModel.cs" />
     <Compile Include="ViewModels\PartenersAddViewModel.cs" />
     <Compile Include="ViewModels\PartenersViewModel.cs" />
     <Compile Include="ViewModels\UserLoginViewModel.cs" />
@@ -385,6 +403,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102052239136_test7.resx">
       <DependentUpon>202102052239136_test7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102090442102_test8.resx">
+      <DependentUpon>202102090442102_test8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102090513309_test9.resx">
+      <DependentUpon>202102090513309_test9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102090514575_test91.resx">
+      <DependentUpon>202102090514575_test91.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
